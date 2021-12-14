@@ -22,7 +22,7 @@ public class TurtleCommandManager implements Iterator<TurtleCommand> {
 		return this.commandList.addAll(commandListManager.commandList);
 	}
 
-	private TurtleCommand get(int index) {
+	public TurtleCommand get(int index) {
 		TurtleCommand command = commandList.get(index);
 		return command;
 	}
