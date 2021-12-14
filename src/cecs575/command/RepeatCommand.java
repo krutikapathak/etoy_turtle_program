@@ -19,7 +19,7 @@ public class RepeatCommand implements TurtleCommand {
 
 	@Override
 	public Turtle execute() {
-		if (!hasLoop()) {
+		if (hasLoop()) {
 			VisitorCommandProcessor visitor = new VisitorCommandProcessor(turtle, context);
 			repeatExpression.getExpressions();
 			int numberOfRepetitions = (int) (repeatExpression.getNumberOfRepetitionsExpression().interpret(context)
@@ -28,6 +28,7 @@ public class RepeatCommand implements TurtleCommand {
 				for (TurtleExpression expression : repeatExpression.getExpressions()) {
 					expression.accept(visitor);
 					turtleCommandManager = visitor.getTurtleCommandManager();
+					turtleCommandManager.get(index).execute();
 					index++;
 				}
 			}

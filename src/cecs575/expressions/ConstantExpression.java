@@ -1,6 +1,12 @@
 package cecs575.expressions;
 
 import java.util.ArrayList;
+/*
+ * Expression to evaluate constant values.
+ * Used as terminal/leaf nodes.
+ *
+ * Interpreting this returns the constant value.
+ */
 
 import cecs575.visitor.TurtleVisitor;
 

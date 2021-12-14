@@ -9,12 +9,12 @@ public class CommandProcessor {
 	private Stack<TurtleCommand> undoStack;
 	private Stack<TurtleCommand> redoStack;
 
-	private CommandProcessor() {
+	public CommandProcessor() {
 		undoStack = new Stack<TurtleCommand>();
 		redoStack = new Stack<TurtleCommand>();
 	}
 
-	public static CommandProcessor getInstance() {
+	public CommandProcessor getInstance() {
 		if (instance == null) {
 			instance = new CommandProcessor();
 		}

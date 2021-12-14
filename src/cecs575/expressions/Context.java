@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import cecs575.etoyProgram.*;
 
+/*
+ * Context needed by the expressions to interpret. Contains variables and an
+ * instance of a turtle, along with methods to access the context data.
+ */
+
 public class Context {
 	HashMap<String,ArrayList<Double>> values = new HashMap<>(); 
 	private Turtle turtle;
