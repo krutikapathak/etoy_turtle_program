@@ -1,11 +1,6 @@
 package cecs575.expressions;
 
 import java.io.BufferedReader;
-import cecs575.visitor.*;
-import cecs575.etoyProgram.*;
-import cecs575.parse.Lexer;
-import cecs575.parse.Parser;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -15,6 +10,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import cecs575.etoyProgram.Point;
+import cecs575.etoyProgram.Turtle;
+import cecs575.parse.Lexer;
+import cecs575.parse.Parser;
 
 public class Reader {
 
@@ -51,52 +50,42 @@ public class Reader {
 	public boolean isAlive() {
 		return isAlive;
 	}
-	 public void interpret() throws IOException, ParseException {
-	        if(!isAlive) {
-	            System.out.println("The program has finished executing every line!");
-	        }
 
-	        String line = fileReader.readLine();
-	        if(line != null) {
-	        	ArrayList<Double> values = parseLine(line).interpret(context);
-	        	if(line.contains("distance") || line.contains("bearing")) {
-	        		Point point = new Point(values.get(0).doubleValue(), values.get(1).doubleValue());
-	        		double dist = 0.0;
-	        		if(line.contains("distance")) {
-	        			dist = context.getTurtle().distanceTo(point);
-	        			System.out.println("distance " + dist);
-	        		} else {
-	        			dist = context.getTurtle().bearingTo(point);
-	        			System.out.println("bearing " + dist);
-	        		}
-	        	}
-	        } else {
-	            isAlive = false;
-	        }
-	    }
-	 
-	 /*
-	     * Parses all the lines in the source code and returns a list of the
-	     * parsed expressions instead of executing them. Useful to apply visitors
-	      * on the source code.
-	     */
-	    public List<TurtleExpression> getExpressions()
-	            throws IOException, ParseException {
-	        List<TurtleExpression> expressions = new ArrayList<>();
-	        String line;
+	public boolean interpret() throws IOException, ParseException {
+		if (!isAlive) {
+			System.out.println("The program has finished executing every line!");
+		}
 
-	        while((line = fileReader.readLine()) != null) {
-	            expressions.add(parseLine(line));
-	        }
+		String line = fileReader.readLine();
+		if (line != null) {
+			parseLine(line).interpret(context);
+		} else {
+			isAlive = false;
+		}
+		return isAlive;
+	}
 
-	        return expressions;
-	    }
-	    private TurtleExpression parseLine(String line)
-	            throws IOException, ParseException {
-	        try {
-	            return Parser.parse(Lexer.tokenize(line), fileReader);
-	        } catch (ParseException e) {
-	            throw new ParseException("Error parsing line: " + line, e);
-	        }
-	    }
+	/*
+	 * Parses all the lines in the source code and returns a list of the parsed
+	 * expressions instead of executing them. Useful to apply visitors on the source
+	 * code.
+	 */
+	public List<TurtleExpression> getExpressions() throws IOException, ParseException {
+		List<TurtleExpression> expressions = new ArrayList<>();
+		String line;
+
+		while ((line = fileReader.readLine()) != null) {
+			expressions.add(parseLine(line));
+		}
+
+		return expressions;
+	}
+
+	private TurtleExpression parseLine(String line) throws IOException, ParseException {
+		try {
+			return Parser.parse(Lexer.tokenize(line), fileReader);
+		} catch (ParseException e) {
+			throw new ParseException("Error parsing line: " + line, e);
+		}
+	}
 }

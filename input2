@@ -1,0 +1,8 @@
+#length = 10
+move #length
+turn 90
+move 20
+turn -60
+move 15
+#length = 5
+move #length

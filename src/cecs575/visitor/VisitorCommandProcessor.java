@@ -1,10 +1,7 @@
 package cecs575.visitor;
 
 import cecs575.expressions.*;
-import cecs575.command.MoveCommand;
-import cecs575.command.RepeatCommand;
-import cecs575.command.TurnCommand;
-import cecs575.command.TurtleCommandManager;
+import cecs575.command.*;
 import cecs575.etoyProgram.*;
 
 public class VisitorCommandProcessor implements TurtleVisitor {
@@ -36,6 +33,7 @@ public class VisitorCommandProcessor implements TurtleVisitor {
 	public void visit(AssignmentExpression assignmentExpression) {
 		context.setVariableValue(assignmentExpression.getVariableName(),
 				assignmentExpression.getConstantExpression().interpret(context));
+		turtleCommandManager.add(new AssignmentCommand(turtle, context, assignmentExpression));
 	}
 
 	@Override
@@ -46,12 +44,10 @@ public class VisitorCommandProcessor implements TurtleVisitor {
 	@Override
 	public void visit(VariableExpression variableExpression) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void visit(ConstantExpression constantExpression) {
 		// TODO Auto-generated method stub
-
 	}
 }

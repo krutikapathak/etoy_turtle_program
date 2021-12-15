@@ -35,17 +35,17 @@ public class Parser {
 
 		// Converting to lowercase to be case insensitive
 		String firstToken = tokens.get(0).toLowerCase();
-		
-		if (tokens.get(2).startsWith("distance") || tokens.get(2).startsWith("bearing")){
-			return variableExpression(tokens.get(3));
-		} else if (firstToken.startsWith("#")) {
+		if (tokens.size() > 2) {
+			if (tokens.get(2).startsWith("distance") || tokens.get(2).startsWith("bearing")) {
+				return variableExpression(tokens.get(3));
+			}
+		}
+		if (firstToken.startsWith("#")) {
 			return assignmentExpression(tokens);
 		}
-		
-		// Checking for all other tokens
-		switch (firstToken)
 
-		{
+		// Checking for all other tokens
+		switch (firstToken) {
 		case "move":
 			return moveExpression(tokens);
 
@@ -65,7 +65,7 @@ public class Parser {
 		String variableName;
 		// This method is only called if a token starting with # was found
 		// so we know tokens.get(0) will give a result. No checks needed.
-		if(tokens.get(0).startsWith("#p") || tokens.get(0).startsWith("#P"))
+		if (tokens.get(0).startsWith("#p") || tokens.get(0).startsWith("#P"))
 			variableName = tokens.get(0).substring(2);
 		else
 			variableName = tokens.get(0).substring(1);
@@ -77,7 +77,7 @@ public class Parser {
 			if ("=".equals(tokens.get(1))) {
 				// Next token should be a constant
 				ConstantExpression constantExpression = processConstantExpression(tokens);
-				
+
 				return new AssignmentExpression(variableName, constantExpression);
 			} else {
 				throw new ParseException("Incorrect assignment syntax: " + "Expected '='!");
@@ -174,7 +174,6 @@ public class Parser {
 	}
 
 	private static ConstantExpression constantExpression(String token) throws ParseException {
-
 		try {
 			return new ConstantExpression(Double.valueOf(token.replaceAll(",", "")));
 		} catch (NumberFormatException e) {
@@ -183,7 +182,6 @@ public class Parser {
 	}
 
 	private static ConstantExpression processConstantExpression(List<String> tokens) throws ParseException {
-
 		try {
 			ConstantExpression constExp = new ConstantExpression(Double.valueOf(tokens.get(2).replaceAll(",", "")));
 			if (!"\n".equals(tokens.get(3))) {

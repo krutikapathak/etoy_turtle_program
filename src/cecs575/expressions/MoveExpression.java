@@ -18,7 +18,6 @@ public class MoveExpression implements TurtleExpression {
 	public ArrayList<Double> interpret(Context context) {
 		ArrayList<Double> distance = new ArrayList<>();
 		distance.addAll(valueExpression.interpret(context));
-		System.out.println("Distance"+ distance);
 		context.getTurtle().move(distance);
 		return distance;
 	}

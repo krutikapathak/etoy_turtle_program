@@ -30,8 +30,6 @@ public class Turtle {
 		double newY = currentLocation.getYCoordinate() + deltaY;
 
 		currentLocation = new Point(newX, newY);
-		System.out.println("New X:" + currentLocation.getXCoordinate());
-		System.out.println("New Y:" + currentLocation.getYCoordinate());
 	}
 
 	public void turn(ArrayList<Double> degree) {

@@ -1,4 +1,4 @@
-package Test;
+package cecs575.JUnitTests;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
@@ -273,5 +273,4 @@ public class CommandTest {
 		command.execute();
 		assertEquals(40.0, turtle.location().getXCoordinate(), 0.0);
 	}
-
 }
